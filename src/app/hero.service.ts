@@ -76,6 +76,25 @@ export class HeroService {
     );
   }
 
+  /**
+   * GET heroes whose name contains search term
+   * @param term search term
+   */
+  searchHeroes(term: string): Observable<Hero[]> {
+    // No search term, return empty array
+    if (!term.trim()) {
+      return of([]);
+    }
+
+    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+      tap(x => x.length ?
+        this.log(`found heroes matching "${term}"`) :
+        this.log(`no heroes matching "${term}"`)
+      ),
+      catchError(this.handleError<Hero[]>('searchHeroes', []))
+    );
+  }
+
   private log(message: string) {
     this.messageService.add(`HeroService: ${message}`);
   }
