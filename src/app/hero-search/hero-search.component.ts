@@ -27,7 +27,8 @@ export class HeroSearchComponent implements OnInit {
   }
 
   /**
-   * Push a search term into the observable stream
+   * Push a search term into the observable stream.
+   *
    * @param term search term
    */
   search(term: string): void {

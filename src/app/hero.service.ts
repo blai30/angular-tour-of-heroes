@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Hero } from './hero';
 import { MessageService } from './message.service';
-import { HEROES } from './mock-heroes';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,8 @@ export class HeroService {
   // URL to web api
   private heroesUrl = 'api/heroes';
 
-  httpOptions = {
+  private httpOptions = {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
@@ -37,11 +37,12 @@ export class HeroService {
     return this.http.get<Hero>(url).pipe(
       tap(_ => this.log(`fetched hero id=${id}`)),
       catchError(this.handleError<Hero>(`getHero id=${id}`))
-    )
+    );
   }
 
   /**
-   * POST: add a new hero to the server
+   * POST: add a new hero to the server.
+   *
    * @param hero the hero to add
    */
   addHero(hero: Hero): Observable<Hero> {
@@ -52,7 +53,8 @@ export class HeroService {
   }
 
   /**
-   * PUT: update the hero on the server
+   * PUT: update the hero on the server.
+   *
    * @param hero hero to update
    */
   updateHero(hero: Hero): Observable<any> {
@@ -63,7 +65,8 @@ export class HeroService {
   }
 
   /**
-   * DELETE: delete the hero from the server
+   * DELETE: delete the hero from the server.
+   *
    * @param hero hero to delete
    */
   deleteHero(hero: Hero | number): Observable<Hero> {
@@ -77,7 +80,8 @@ export class HeroService {
   }
 
   /**
-   * GET heroes whose name contains search term
+   * GET heroes whose name contains search term.
+   *
    * @param term search term
    */
   searchHeroes(term: string): Observable<Hero[]> {
@@ -102,6 +106,7 @@ export class HeroService {
   /**
    * Handle Http operation that failed.
    * Let the app continue.
+   *
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
